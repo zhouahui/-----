@@ -1,0 +1,198 @@
+/*头部导航开始*/
+.shortcut {
+    height: 30px;
+    line-height: 30px;
+    background: #f1f1f1;
+}
+
+.dt, .shortcut .fore{
+    padding: 0 20px 0 10px;
+    position: relative;
+    cursor: default;
+}
+.dt i, .fr i{
+    font:400 15px/15px "宋体";
+    position: absolute;
+    top:13px;
+    right:3px;
+    height: 7px;
+    overflow: hidden;
+    width: 15px;
+}
+.dt s, .fr s{
+    position: absolute;
+    top:-8px;
+    left: 0;
+}
+.fr li{
+    float: left;
+    padding: 0 10px;
+}
+.fr .line{
+    width: 1px;
+    height: 12px;
+    background: #ddd;
+    margin-top: 9px;
+    padding: 0;
+}
+.tel{
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    background: url(../image/sprite.png) no-repeat;
+    left: 5px;
+    top: 5px;
+}
+.shortcut .tel-jd{
+    padding: 0 20px 0 25px;
+}
+/*头部结束*/
+/*头部广告开始*/
+.toplogo{
+    /*width: 100%;*/
+    background: #2B1A00;
+    position: relative;
+}
+.toplogo span {
+    color: #fff;
+    font-size: 20px;
+    position: absolute;
+    top:0;
+    right:380px;
+    cursor: pointer;
+}
+/*广告结束*/
+/*搜索,购物车.logo开始*/
+.search {
+    height: 80px;
+    padding-top: 20px;
+}
+.logo {
+    background: url("../image/logo-201305.png") no-repeat;
+    width: 270px;
+    height: 60px;
+}
+.search-text {
+    width: 620px;
+    padding: 5px 0 0 92px;
+}
+.search-text li {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.search-text .u-search{
+    padding-left: 5px;
+    width: 449px;
+    height: 32px;
+    border: 2px solid #B61D1D;
+}
+.btn-search {
+    width: 80px;
+    height: 36px;
+    background: #B61D1D;
+    color: white;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    border: none;
+    font-family: "microsoft Yahei";
+}
+.gouwu {
+    margin: 5px 0 0 25px;
+    padding: 10px  0 0 15px;
+    width: 120px;
+    height: 26px;
+    position: relative;
+    background: #F9F9F9;
+    border: 1px #DFDFDF solid;
+}
+.gouwu a {
+    margin-left: 4px;
+}
+.gouwu .num {
+    width: 15px;
+    height: 15px;
+    border-radius: 7px 7px 7px 0;
+    background: #b61d1d;
+    position: absolute;
+    top: -5px;;
+    right: 25px;
+    color: white;
+    text-align: center;
+    line-height: 15px;
+}
+.gouwu .icon {
+    width: 7px;
+    height: 13px;
+    font:400 13px/13px simsun;
+    color: #999;
+    position: absolute;
+    top:10px;
+    right: 10px;
+}
+/*搜索,购物车,logo结束*/
+/*主体导航框架,横向导航,奥运logo开始*/
+.nav1 {
+    height: 44px;
+    width: 210px;
+    background: #B3191B;
+    line-height: 44px;
+    font-size: 15px;
+    text-indent: 10px;
+    font-family: "microsoft Yahei";
+    color: white;
+}
+.nav1 a {
+color: white;
+}
+.nav2 {
+    float: left;
+    position: relative;
+}
+.nav2 ul li {
+    height: 44px;
+    line-height: 44px;
+    float: left;
+    margin: 0 20px;
+    font-size: 16px;
+}
+.nav2 ul li a {
+    font-family: "microsoft Yahei";
+    color: #333333;
+}
+.nav2 ul li a:hover {
+    color: #b61d1d;
+}
+/*主体导航框架,横向导航,奥运logo结合*/
+.aoyun-logo {
+    background: url("../image/579c96b5Na4d092b1.jpg") no-repeat center top;
+    background-size: cover;
+    height: 644px;
+    width: 100%;
+    position: absolute;
+}
+.nav3{
+height: 466px;
+    width: 210px;
+    background: #C81623;
+    position: relative;
+}
+.nav3 ul li {
+    color: white;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    height: 31px;
+    line-height: 31px;
+    text-indent: 11px;
+    position: relative;
+}
+.nav3 ul li i {
+    position: absolute;
+    right: 12px;
+    top:9px;
+    font:400 9px/14px consolas;
+}
+.nav3 ul li a {
+    color: white;
+}
