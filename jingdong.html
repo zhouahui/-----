@@ -89,35 +89,54 @@
                     }, 3000)
                 }
             }
-//            左移动
-            left.onclick = function () {
-                for (var i = 0; i < images.length; i++) {
-                    images[i].style.zIndex = 0;
-                    yuandian[i].style.background = "#3E3E3E";
+            var n = 0;
+
+            function clk(time) {
+                if (n > 0) {
+                    return false;
                 }
-                fadeOut(images[num]);
-                num--;
-                if (num < 0) {
-                    num = images.length - 1;
-                }
-                fadeIn(images[num]);
-                images[num].style.zIndex = 5;
-                yuandian[num].style.background = "#B61B1F";
+                n = n + 1;
+                setTimeout(function () {
+                    n = 0
+                }, time);
+                return true;
             }
+
+//            左移动
+
+            left.onclick = function () {
+                if (clk(1000) == true) {
+                    for (var i = 0; i < images.length; i++) {
+                        images[i].style.zIndex = 0;
+                        yuandian[i].style.background = "#3E3E3E";
+                    }
+                    fadeOut(images[num]);
+                    num--;
+                    if (num < 0) {
+                        num = images.length - 1;
+                    }
+                    fadeIn(images[num]);
+                    images[num].style.zIndex = 5;
+                    yuandian[num].style.background = "#B61B1F";
+                }
+            }
+
 //            右移动
             function right() {
-                fadeOut(images[num]);
-                num++;
-                if (num > images.length - 1) {
-                    num = 0;
-                }
-                images[num].style.zIndex = 5;
-                fadeIn(images[num]);
-                for (var i = 0; i < images.length; i++) {
+                if (clk(1000) == true) {
+                    fadeOut(images[num]);
+                    num++;
+                    if (num > images.length - 1) {
+                        num = 0;
+                    }
+                    images[num].style.zIndex = 5;
+                    fadeIn(images[num]);
+                    for (var i = 0; i < images.length; i++) {
 //                    images[i].style.zIndex = 0;
-                    yuandian[i].style.background = "#3E3E3E";
+                        yuandian[i].style.background = "#3E3E3E";
+                    }
+                    yuandian[num].style.background = "#B61B1F";
                 }
-                yuandian[num].style.background = "#B61B1F";
             }
 
             Right.onclick = right;
@@ -183,22 +202,26 @@
 //            alert(li_s.length);
             var left2 = $("arrow2").children[0];
             var Right2 = $("arrow2").children[1];
-            var imgindex=0;
+            var imgindex = 0;
             left2.onclick = function () {
-                imgindex--;
-                if(imgindex==-1){
-                    $("tu").style.left = -1000*(li_s-1)+"px";
-                    imgindex=li_s-2;
+                if (clk(500) == true) {
+                    imgindex--;
+                    if (imgindex == -1) {
+                        $("tu").style.left = -1000 * (li_s - 1) + "px";
+                        imgindex = li_s - 2;
+                    }
+                    goLeft($("tu"), imgindex * 1000)
                 }
-                goLeft($("tu"),imgindex*1000)
             }
-            Right2.onclick = function() {
-                imgindex++;
-                if(imgindex==li_s){
-                    $("tu").style.left = "0px";
-                    imgindex=1;
+            Right2.onclick = function () {
+                if (clk(500) == true) {
+                    imgindex++;
+                    if (imgindex == li_s) {
+                        $("tu").style.left = "0px";
+                        imgindex = 1;
+                    }
+                    goLeft($("tu"), imgindex * 1000);
                 }
-                goLeft($("tu"),imgindex*1000);
             }
 ////            点播缓慢
             function goLeft(elem, dist) {
@@ -215,46 +238,96 @@
                         var pos = parseInt(elem.style.left);
                         setTimeout(function () {
                             pos += (toLeft) ? -(_i * 10) : (_i * 10);
-//                            console.log(pos);
+                            console.log(pos);
                             elem.style.left = pos + "px";
                         }, _i * 3)
                     })(i);
                 }
             }
+
+//            var like = document.getElementsByClassName("like")[0];
+//            var xian = document.getElementsByClassName("xian")[0].children[0];
+//            like.onmouseover = function () {
+////alert(xian.style.right);
+//                if(xian.style.left=="875px"){
+//                    like.style.left="0px";
+//                    goLeft(xian,870);
+//                }
+//
+//            }
         }
     </script>
     <!--<script type="text/javascript">-->
-        <!--//            JQ实现点播功能-->
-        <!--$(function () {-->
-            <!--var clone = $("#dianbo #tu li").first().clone();-->
-            <!--$("#dianbo #tu").append(clone);-->
-            <!--var i=0;-->
-            <!--var size=$("#dianbo #tu li").size();-->
-            <!--console.log(size);-->
-<!--//                左轮波-->
-            <!--$("#arrow2 .arrow2-left").click(function() {-->
-                <!--i&#45;&#45;;-->
-                <!--if (i == -1) {-->
-                    <!--console.log(i);-->
-                    <!--console.log(size);-->
-                    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
-                    <!--i = size - 2;-->
-                <!--}-->
-                <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
-            <!--});-->
-            <!--$("#arrow2 .arrow2-right").click(function(){-->
-                <!--moveR();-->
-            <!--})-->
-            <!--function moveR(){-->
-                <!--i++;-->
-                <!--if(i==size){-->
-                    <!--$("#dianbo #tu").css({left:0});-->
-                    <!--i=1;-->
-                <!--}-->
-                <!--$("#dianbo #tu").stop().animate({left:-i*1000},600);-->
-            <!--}-->
-        <!--})-->
+    <!--//            JQ实现点播功能-->
+    <!--$(function () {-->
+    <!--var clone = $("#dianbo #tu li").first().clone();-->
+    <!--$("#dianbo #tu").append(clone);-->
+    <!--var i=0;-->
+    <!--var size=$("#dianbo #tu li").size();-->
+    <!--console.log(size);-->
+    <!--//                左轮波-->
+    <!--$("#arrow2 .arrow2-left").click(function() {-->
+    <!--i&#45;&#45;;-->
+    <!--if (i == -1) {-->
+    <!--console.log(i);-->
+    <!--console.log(size);-->
+    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
+    <!--i = size - 2;-->
+    <!--}-->
+    <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
+    <!--});-->
+    <!--$("#arrow2 .arrow2-right").click(function(){-->
+    <!--moveR();-->
+    <!--})-->
+    <!--function moveR(){-->
+    <!--i++;-->
+    <!--if(i==size){-->
+    <!--$("#dianbo #tu").css({left:0});-->
+    <!--i=1;-->
+    <!--}-->
+    <!--$("#dianbo #tu").stop().animate({left:-i*1000},600);-->
+    <!--}-->
+    <!--})-->
     <!--</script>-->
+    <script type="text/javascript">
+        <!--小楼梯导航-->
+        $(function () {
+            var _index = 0;
+            $("#menu ul li").click(function () {
+                $(this).find("span").addClass("active").parent().siblings().find("span").removeClass("active");
+                _index = $(this).index() + 1;
+//                console.log(_index);
+                //通过拼接字符串获取元素，再取得相对于文档的高度
+                var _top = $("#louti" + _index).offset().top;
+                //scrollTop滚动到对应高度
+                $("body,html").animate({scrollTop: _top}, 500);
+            });
+            var nav = $("#menu"); //得到导航对象
+            var win = $(window); //得到窗口对象
+            var sc = $(document);//得到document文档对象。
+            win.scroll(function () {
+                var s = document.body.clientWidth;
+//                console.log((s-1210)/2-32)
+//                $("#dianbo #tu").css({left: (size - 1) * -1000});
+                nav.css({left: (s - 1210) / 2 - 32});
+//                if(sc.scrollLeft)
+                if (sc.scrollTop() >= 800) {
+                    $("#menu").show();
+                    console.log(sc.scrollTop());
+                    $("#menu ul li span").eq(0).addClass("active").parent().siblings().find("span").removeClass("active");
+                    if (sc.scrollTop() >= 2255) {
+                        $("#menu ul li span").eq(1).addClass("active").parent().siblings().find("span").removeClass("active");
+                        if (sc.scrollTop() >= 2955) {
+                            $("#menu ul li span").eq(2).addClass("active").parent().siblings().find("span").removeClass("active");
+                        }
+                    }
+                }
+                else {
+                    $("#menu").hide();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <!--右侧导航绝对定位-->
@@ -367,8 +440,8 @@
 </div>
 <!--清除浮动-->
 <div class="clearfix"></div>
-<!--分割线-->
-<div class="fenge">
+<!--分割线,左体1级导航,2级隐藏导航,中间轮播,右边新闻,12生活服务.下边直通车16个点播图片-->
+<div class="fen-ge">
     <!--版心100%背景-->
     <div class="aoyun-logo">
         <div class="w">
@@ -2749,7 +2822,292 @@
         </div>
     </div>
 </div>
+<!--猜你喜欢-->
+<div class="like w">
+    <div class="random">
+        <h2 class="fl">猜你喜欢</h2>
+        <span class="fr">换一批</span>
+    </div>
+    <div class="xian">
+        <i></i>
+    </div>
+    <div class="like-box">
+        <ul>
+            <li>
+                <div class="p-img">
+                    <img src="image/57315f6cNe3cd05dd.jpg">
+                </div>
+                <div class="p-a">
+                    <a href="#" class="clearfix">九阳(joyong)豆浆机</br>免滤快速制浆</a>
+                    <i>¥</i>
+                    <b>289.00</b>
+                </div>
+            </li>
+            <li>
+                <div class="p-img">
+                    <img src="image/573c2131N26fef2db.jpg">
+                </div>
+                <div class="p-a">
+                    <a href="#" class="clearfix">飞科(FLYCO)FS375智能电动剃须刀全身水洗</a>
+                    <i>¥</i>
+                    <b>149.00</b>
+                </div>
+            </li>
+            <li>
+                <div class="p-img">
+                    <img src="image/574d3435N0f9bae95.jpg">
+                </div>
+                <div class="p-a">
+                    <a href="#" class="clearfix">【京东超市】维他 柠檬茶250ml*24盒 整箱</a>
+                    <i>¥</i>
+                    <b>53.90</b>
+                </div>
+            </li>
+            <li>
+                <div class="p-img">
+                    <img src="image/572ff593Nd1b0dfa7.jpg">
+                </div>
+                <div class="p-a">
+                    <a href="#" class="clearfix">美的(Midea)果汁机多功能料理机 家用婴儿</a>
+                    <i>¥</i>
+                    <b>129.00</b>
+                </div>
+            </li>
+            <li>
+                <div class="p-img">
+                    <img src="image/5799b5ddNdec2345a.jpg">
+                </div>
+                <div class="p-a">
+                    <a href="#" class="clearfix">【竟然这么便宜】条纹修身显瘦露肩A字裙拼接</a>
+                    <i>¥</i>
+                    <b>99.00</b>
+                </div>
+            </li>
+            <li>
+                <div class="p-img">
+                    <img src="image/56d914f1Ne93ca6d1.jpg">
+                </div>
+                <div class="p-a" style="border: none">
+                    <a href="#" class="clearfix">宾格BINGER手表全自动石英腕表男表男士手</a>
+                    <i>¥</i>
+                    <b>248.00</b>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-
+</div>
+<!--品质生活-->
+<div class="life w">
+    <h2>京东 · 品质生活</h2>
+    <div class="life-box">
+        <div class="life-col1 fl">
+            <a href="#">
+                <p>新发现</p>
+                <div class="sub-tit">
+                    <p class="tit">时间戒指</p>
+                    <p class="desc">指环戒指时钟</p>
+                    <p class="promotion">炫到爆</p>
+                </div>
+                <img src="image/57a3f7fbN4f1f9843.jpg" style="border-bottom: 1px solid #e0e0e0;">
+            </a>
+            <a href="#" class="fl" style="border-right:1px solid #e0e0e0">
+                <div class="sub-tit2">
+                    <p class="tit">领券中心</p>
+                    <p class="desc">找好券</p>
+                    <p class="promotion">总有你想要的</p>
+                </div>
+                <img src="image/57a46ab9Nd618bcee.jpg">
+            </a>
+            <a href="#" class="fl">
+                <div class="sub-tit2">
+                    <p class="tit">限时秒杀</p>
+                    <p class="desc">好货轮番</p>
+                    <p class="promotion">拼的就是手速</p>
+                </div>
+                <img src="image/57ab2ccfN76b8ede7.jpg">
+            </a>
+        </div>
+        <div class="life-col2 fl">
+            <a href="#">
+                <p>好东西</p>
+                <div class="sub-tit" style="left: 10px">
+                    <p class="tit">达人推荐</p>
+                    <p class="desc">腕上私语</p>
+                    <p class="promotion">智能与机械结合</p>
+                </div>
+                <img src="image/57aad0f8N10d7b98b.jpg" style="border-bottom: 1px solid #e0e0e0">
+            </a>
+            <a href="#" class="fl">
+                <div class="sub-tit2">
+                    <p class="tit">发现好物</p>
+                    <p class="desc">荣耀8</p>
+                    <p class="promotion">双镜头大光圈</p>
+                </div>
+                <img src="image/57aad25dNc7645f98.jpg">
+            </a>
+        </div>
+        <div class="life-col3 fl">
+            <a href="#">
+                <p>品牌街</p>
+                <!--<div class="sub-tit">-->
+                <!--<p class="tit">耐克</p>-->
+                <!--<p class="desc">KAISHI</p>-->
+                <!--<p class="promotion">奥利奥休闲鞋</p>-->
+                <!--</div>-->
+                <img src="image/57834fb2N2291925c.jpg" style="border-bottom: 1px solid #e0e0e0">
+            </a>
+            <a href="#" class="fl">
+                <div class="sub-tit2">
+                    <p class="tit">国际服饰</p>
+                    <p class="desc">巅峰黑运动腕表</p>
+                    <p class="promotion">低至5折</p>
+                </div>
+                <img src="image/57a94aa1Ne58921ba.jpg" style="border-right: 1px solid #e0e0e0">
+            </a>
+            <a href="#" class="fl">
+                <!--<div class="sub-tit2">-->
+                <!--<p class="tit">本周特卖</p>-->
+                <!--<p class="desc">大牌折扣</p>-->
+                <!--<p class="promotion">每周上新</p>-->
+                <!--</div>-->
+                <img src="image/57a401d2N0c9f0160.jpg">
+            </a>
+        </div>
+        <div class="life-brands fl">
+            <div class="brands-left fl" style=" border-right: 1px dashed #E4E4E4;">
+                <ul>
+                    <li>
+                        <img src="image/57720f10N916a423d.jpg">
+                    </li>
+                    <li>
+                        <img src="image/5763ad44Nd29dc824.jpg">
+                    </li>
+                    <li>
+                        <img src="image/5786128bN6232ac1b.jpg">
+                    </li>
+                    <li>
+                        <img src="image/564d4328N6fb33fc8.png">
+                    </li>
+                    <li>
+                        <img src="image/575d1964Nb291ee77.jpg">
+                    </li>
+                    <li>
+                        <img src="image/56b2f385N8e4eb051.jpg">
+                    </li>
+                    <li style="border: 0;">
+                        <img src="image/56c04bc6Nb1e3b063.jpg">
+                    </li>
+                </ul>
+            </div>
+            <div class="brands-left fl" style="margin-left: 6px">
+                <ul>
+                    <li>
+                        <img src="image/5716e2c4Nc925baf3.jpg">
+                    </li>
+                    <li>
+                        <img src="image/575d1934Nb59e3dfd.jpg">
+                    </li>
+                    <li>
+                        <img src="image/56b17227N33396de6.jpg">
+                    </li>
+                    <li>
+                        <img src="image/56a82043N6e9f3b14.jpg">
+                    </li>
+                    <li>
+                        <img src="image/569dce20N87f111d4.jpg">
+                    </li>
+                    <li>
+                        <img src="image/5729c6b3Nb0a0e6f1.jpg">
+                    </li>
+                    <li style="border: 0;">
+                        <img src="image/57233394Nbf943014.jpg">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--广告栏-->
+<div class="w">
+    <div class="bc">
+        <img src="image/57a40e9eN1aa6ac4c.jpg"><img src="image/57a9ab61N042424f4.jpg"><img
+            src="image/57aa9d1fN3f9495d0.jpg">
+    </div>
+</div>
+<!--导航菜单-->
+<div id="menu">
+    <ul>
+        <li>1F<span>服饰</span></li>
+        <li>2F<span>美妆</span></li>
+        <li>3F<span>手机</span></li>
+        <!--<li>4F<span>家电</span></li>-->
+        <!--<li>5F<span>数码</span></li>-->
+        <!--<li>6F<span>运动</span></li>-->
+        <!--<li>7F<span>居家</span></li>-->
+        <!--<li>8F<span>母婴</span></li>-->
+        <!--<li>9F<span>食品</span></li>-->
+        <!--<li>10F<span>图书</span></li>-->
+        <!--<li>11F<span>服务</span></li>-->
+    </ul>
+</div>
+<!--F1-F12-->
+<div class="main">
+    <div class="w" id="content">
+        <ul>
+            <li>
+                <!--F1服饰-->
+                <div class="cos">
+                    <div class="mt" id="louti1">
+                        <h2>
+                            <i>1F</i>
+                            服装鞋包
+                        </h2>
+                    </div>
+                </div>
+                <div class="F1"></div>
+                <!--广告-->
+                <div class="na">
+                    <div class="w">
+                        <div class="na1"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <!--F2美妆-->
+                <div class="lite">
+                    <div class="mt" id="louti2">
+                        <h2>
+                            <i>2F</i>
+                            个户美妆
+                        </h2>
+                    </div>
+                </div>
+                <div class="F2"></div>
+            </li>
+            <li>
+                <!--F3手机-->
+                <div class="iphone">
+                    <div class="mt" id="louti3">
+                        <h2>
+                            <i>3F</i>
+                            手机通讯
+                        </h2>
+                    </div>
+                </div>
+                <div class="F3"></div>
+            </li>
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+            <!--<li></li>-->
+        </ul>
+    </div>
+</div>
 </body>
 </html>
