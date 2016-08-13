@@ -12,6 +12,8 @@
             var $ = function (id) {
                 return document.getElementById(id);
             }
+            var load = document.getElementsByClassName("loading")[0];
+            load.style.display = "none";
 //            顶部广告开始
             $("X").onclick = function () {
                 $("toplogo").style.display = "none";
@@ -43,54 +45,95 @@
             }
             //                  隐藏导航hover效果结束
             //                轮播开始
-            var images = document.getElementById("images").getElementsByTagName("a");
-            var arrow = document.getElementById("arrow");
-            var yuandian = document.getElementById("dingwei").getElementsByTagName("li");
-            var left = arrow.children[0];
-            var Right = arrow.children[1];
-            var num = 0;
-
-            for (var i = 0; i < yuandian.length; i++) {
+            function lunbo(id,tagname1,id2,id3,tagname2) {
+                var images = document.getElementById(id).getElementsByTagName(tagname1);
+                var arrow = document.getElementById(id2);
+                var yuandian = document.getElementById(id3).getElementsByTagName(tagname2);
+                var left = arrow.children[0];
+                var Right = arrow.children[1];
+                var num = 0;
+                for (var i = 0; i < yuandian.length; i++) {
 //                小箭头隐入隐出+停留图片停止轮播+轮播
-                images[i].index = i;
-                yuandian[i].index = i;
-                yuandian[i].onmouseover = function () {
-                    clearInterval(times);
-                    for (var i = 0; i < yuandian.length; i++) {
-                        images[i].style.zIndex = -1;
-                        yuandian[i].style.background = "#3E3E3E";
-
-                    }
+                    images[i].index = i;
+                    yuandian[i].index = i;
+                    yuandian[i].onmouseover = function () {
+                        clearInterval(times);
+                        for (var i = 0; i < yuandian.length; i++) {
+                            images[i].style.zIndex = -1;
+                            yuandian[i].style.background = "#3E3E3E";
+                        }
 //                    fadeOut(images[i]);
-                    i = this.index
-                    fadeIn(images[i]);
-                    images[i].style.zIndex = 5;
-                    yuandian[i].style.background = "#B61B1F";
+                        i = this.index
+                        fadeIn(images[i]);
+                        images[i].style.zIndex = 5;
+                        yuandian[i].style.background = "#B61B1F";
 //                    alert(this.index);
+                    }
+                    images[i].onmouseover = function () {
+                        arrow.style.display = "block";
+                        clearInterval(times);
+                    }
+                    arrow.onmouseover = function () {
+                        arrow.style.display = "block";
+                        clearInterval(times);
+                    }
+                    images[i].onmouseout = function () {
+                        arrow.style.display = "none";
+                        times = setInterval(function () {
+                            right()
+                        }, 3000)
+                    }
+                    arrow.onmouseout = function () {
+                        arrow.style.display = "none";
+                        times = setInterval(function () {
+                            right()
+                        }, 3000)
+                    }
                 }
-                images[i].onmouseover = function () {
-                    arrow.style.display = "block";
-                    clearInterval(times);
+                left.onclick = function () {
+                    if (clk(1000) == true) {
+                        for (var i = 0; i < images.length; i++) {
+                            images[i].style.zIndex = 0;
+                            yuandian[i].style.background = "#3E3E3E";
+                        }
+                        fadeOut(images[num]);
+                        num--;
+                        if (num < 0) {
+                            num = images.length - 1;
+                        }
+                        fadeIn(images[num]);
+                        images[num].style.zIndex = 5;
+                        yuandian[num].style.background = "#B61B1F";
+                    }
                 }
-                arrow.onmouseover = function () {
-                    arrow.style.display = "block";
-                    clearInterval(times);
-                }
-                images[i].onmouseout = function () {
-                    arrow.style.display = "none";
-                    times = setInterval(function () {
-                        right()
-                    }, 3000)
-                }
-                arrow.onmouseout = function () {
-                    arrow.style.display = "none";
-                    times = setInterval(function () {
-                        right()
-                    }, 3000)
-                }
-            }
-            var n = 0;
 
+//            右移动
+                function right() {
+                    if (clk(1000) == true) {
+                        fadeOut(images[num]);
+                        num++;
+                        if (num > images.length - 1) {
+                            num = 0;
+                        }
+                        images[num].style.zIndex = 5;
+                        fadeIn(images[num]);
+                        for (var i = 0; i < images.length; i++) {
+//                    images[i].style.zIndex = 0;
+                            yuandian[i].style.background = "#3E3E3E";
+                        }
+                        yuandian[num].style.background = "#B61B1F";
+                    }
+                }
+
+                Right.onclick = right;
+//            定时器
+                var times = null;
+                times = setInterval(function () {
+                    right()
+                }, 3000)
+            }
+            lunbo("images","a","arrow","dingwei","li");
+            var n = 0;
             function clk(time) {
                 if (n > 0) {
                     return false;
@@ -101,50 +144,7 @@
                 }, time);
                 return true;
             }
-
 //            左移动
-
-            left.onclick = function () {
-                if (clk(1000) == true) {
-                    for (var i = 0; i < images.length; i++) {
-                        images[i].style.zIndex = 0;
-                        yuandian[i].style.background = "#3E3E3E";
-                    }
-                    fadeOut(images[num]);
-                    num--;
-                    if (num < 0) {
-                        num = images.length - 1;
-                    }
-                    fadeIn(images[num]);
-                    images[num].style.zIndex = 5;
-                    yuandian[num].style.background = "#B61B1F";
-                }
-            }
-
-//            右移动
-            function right() {
-                if (clk(1000) == true) {
-                    fadeOut(images[num]);
-                    num++;
-                    if (num > images.length - 1) {
-                        num = 0;
-                    }
-                    images[num].style.zIndex = 5;
-                    fadeIn(images[num]);
-                    for (var i = 0; i < images.length; i++) {
-//                    images[i].style.zIndex = 0;
-                        yuandian[i].style.background = "#3E3E3E";
-                    }
-                    yuandian[num].style.background = "#B61B1F";
-                }
-            }
-
-            Right.onclick = right;
-//            定时器
-            var times = null;
-            times = setInterval(function () {
-                right()
-            }, 3000)
 //           淡入函数
             function fadeIn(elem) {
                 setOpacity(elem, 0);
@@ -180,49 +180,91 @@
             }
 
 //          轮播结束
-//             12个生活服务图标遍历
-            function fn() {
-                var serve = document.getElementById("serve").getElementsByTagName("li");
-                for (var i = 0; i < serve.length; i++) {
-                    var a = document.createElement("a");
+////             12个生活服务图标遍历
+            function fn(id, li, name, num, cla) {
+                var id = document.getElementById(id).getElementsByTagName(li);
+                for (var i = 0; i < id.length; i++) {
+                    if (name == "a") {
+                        var a = document.createElement("a");
+                    }
                     a.href = "#"
-                    a.className = "ceshi" + i;
-                    a.style.backgroundPosition = "0%" + (-i * 25) + "px";
-                    serve[i].appendChild(a);
+                    a.className = cla + i;
+                    a.style.backgroundPosition = "0%" + (-i * num) + "px";
+                    id[i].appendChild(a);
                 }
-            };
-            fn();
+            }
+            fn("serve", "li", "a", 25, "ceshi");
+            fn("themes", "li", "a", 26, "sixicon")
 ////            图标结束
 ////            点播开始
 ////            小箭头
-            var li = document.getElementById("tu").getElementsByTagName("li")[0];
-            var cli = li.cloneNode(true);
-            $("tu").appendChild(cli);
-            var li_s = document.getElementById("tu").getElementsByTagName("li").length;
+            function dianbo(id,tagname1,id2,dist,dingshi){
+                var li = document.getElementById(id).getElementsByTagName(tagname1)[0];
+                var cli = li.cloneNode(true);
+                $(id).appendChild(cli);
+                var li_s = document.getElementById(id).getElementsByTagName(tagname1).length;
+                var li=document.getElementById(id).getElementsByTagName(tagname1);
 //            alert(li_s.length);
-            var left2 = $("arrow2").children[0];
-            var Right2 = $("arrow2").children[1];
-            var imgindex = 0;
-            left2.onclick = function () {
-                if (clk(500) == true) {
-                    imgindex--;
-                    if (imgindex == -1) {
-                        $("tu").style.left = -1000 * (li_s - 1) + "px";
-                        imgindex = li_s - 2;
+                var left2 = $(id2).children[0];
+                var Right2 = $(id2).children[1];
+                var imgindex = 0;
+                var yuan = document.getElementById("yuan").getElementsByTagName("li");
+                for (var i = 0; i < yuan.length; i++) {
+//                小箭头隐入隐出+停留图片停止轮播+轮播
+                    li[i].index = i;
+                    yuan[i].index = i;
+                    yuan[i].onmouseover = function () {
+                        for (var i = 0; i < yuan.length; i++) {
+                            yuan[i].style.background = "#3E3E3E";
+                        }
+                        i = this.index
+                        goLeft($(id), i * dist)
+                        yuan[i].style.background = "#B61B1F";
                     }
-                    goLeft($("tu"), imgindex * 1000)
                 }
-            }
-            Right2.onclick = function () {
-                if (clk(500) == true) {
-                    imgindex++;
-                    if (imgindex == li_s) {
-                        $("tu").style.left = "0px";
-                        imgindex = 1;
+                left2.onclick = function () {
+                    if (clk(500) == true) {
+                        for (var i = 0; i < yuan.length; i++) {
+                            yuan[i].style.background = "#3E3E3E";
+                        }
+                        imgindex--;
+
+                        if (imgindex == -1) {
+                            $(id).style.left = -dist * (li_s - 1) + "px";
+                            imgindex = li_s - 2;
+                        }
+                        goLeft($(id), imgindex * dist)
+                        yuan[imgindex].style.background = "#B61B1F";
                     }
-                    goLeft($("tu"), imgindex * 1000);
                 }
+
+
+                function right(){
+                    if (clk(500) == true) {
+                        for (var i = 0; i < yuan.length; i++) {
+                            yuan[i].style.background = "#3E3E3E";
+                        }
+                        imgindex++;
+                        if (imgindex == li_s) {
+                            $(id).style.left = "0px";
+                            imgindex = 1;
+                        }
+//                        console.log(imgindex);
+                        goLeft($(id), imgindex * dist);
+                        if (imgindex<4){
+                            yuan[imgindex].style.background = "#B61B1F";
+                        }else{
+                            yuan[0].style.background = "#B61B1F";
+                        }
+                    }
+                }
+                Right2.onclick = right;
+                if(dingshi=="true"){
+                setInterval(right,2000);}
             }
+            dianbo("tu","li","arrow2",1000,"flash");
+            dianbo("for3","li","arrow3",440,"true");
+
 ////            点播缓慢
             function goLeft(elem, dist) {
                 var toLeft;
@@ -238,7 +280,6 @@
                         var pos = parseInt(elem.style.left);
                         setTimeout(function () {
                             pos += (toLeft) ? -(_i * 10) : (_i * 10);
-                            console.log(pos);
                             elem.style.left = pos + "px";
                         }, _i * 3)
                     })(i);
@@ -258,36 +299,36 @@
         }
     </script>
     <!--<script type="text/javascript">-->
-    <!--//            JQ实现点播功能-->
-    <!--$(function () {-->
-    <!--var clone = $("#dianbo #tu li").first().clone();-->
-    <!--$("#dianbo #tu").append(clone);-->
-    <!--var i=0;-->
-    <!--var size=$("#dianbo #tu li").size();-->
-    <!--console.log(size);-->
-    <!--//                左轮波-->
-    <!--$("#arrow2 .arrow2-left").click(function() {-->
-    <!--i&#45;&#45;;-->
-    <!--if (i == -1) {-->
-    <!--console.log(i);-->
-    <!--console.log(size);-->
-    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
-    <!--i = size - 2;-->
-    <!--}-->
-    <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
-    <!--});-->
-    <!--$("#arrow2 .arrow2-right").click(function(){-->
-    <!--moveR();-->
-    <!--})-->
-    <!--function moveR(){-->
-    <!--i++;-->
-    <!--if(i==size){-->
-    <!--$("#dianbo #tu").css({left:0});-->
-    <!--i=1;-->
-    <!--}-->
-    <!--$("#dianbo #tu").stop().animate({left:-i*1000},600);-->
-    <!--}-->
-    <!--})-->
+        <!--//            JQ实现点播功能-->
+        <!--$(function () {-->
+            <!--var clone = $("#dianbo #tu li").first().clone();-->
+            <!--$("#dianbo #tu").append(clone);-->
+            <!--var i = 0;-->
+            <!--var size = $("#dianbo #tu li").size();-->
+            <!--console.log(size);-->
+            <!--//                左轮波-->
+            <!--$("#arrow2 .arrow2-left").click(function () {-->
+                <!--i&#45;&#45;;-->
+                <!--if (i == -1) {-->
+                    <!--console.log(i);-->
+                    <!--console.log(size);-->
+                    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
+                    <!--i = size - 2;-->
+                <!--}-->
+                <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
+            <!--});-->
+            <!--$("#arrow2 .arrow2-right").click(function () {-->
+                <!--moveR();-->
+            <!--})-->
+            <!--function moveR() {-->
+                <!--i++;-->
+                <!--if (i == size) {-->
+                    <!--$("#dianbo #tu").css({left: 0});-->
+                    <!--i = 1;-->
+                <!--}-->
+                <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
+            <!--}-->
+        <!--})-->
     <!--</script>-->
     <script type="text/javascript">
         <!--小楼梯导航-->
@@ -313,7 +354,7 @@
 //                if(sc.scrollLeft)
                 if (sc.scrollTop() >= 800) {
                     $("#menu").show();
-                    console.log(sc.scrollTop());
+//                    console.log(sc.scrollTop());
                     $("#menu ul li span").eq(0).addClass("active").parent().siblings().find("span").removeClass("active");
                     if (sc.scrollTop() >= 2255) {
                         $("#menu ul li span").eq(1).addClass("active").parent().siblings().find("span").removeClass("active");
@@ -3059,13 +3100,102 @@
                 <!--F1服饰-->
                 <div class="cos">
                     <div class="mt" id="louti1">
-                        <h2>
+                        <h2 class="fl">
                             <i>1F</i>
                             服装鞋包
                         </h2>
+                        <ul class="fr">
+                            <li class="hover-style">大牌<span style="display: none;">|</span></li>
+                            <li>男装<span>|</span></li>
+                            <li>女装<span>|</span></li>
+                            <li>鞋靴<span>|</span></li>
+                            <li>箱包<span>|</span></li>
+                            <li>内衣配饰<span>|</span></li>
+                            <li>珠宝首饰<span>|</span></li>
+                            <li>奢品礼品<span>|</span></li>
+                            <li>奢华腕表</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="F1"></div>
+                <div class="F1">
+                    <div class="F1left fl">
+                        <div class="banleft fl">
+                            <a href="#">
+                                <img src="image/57abe7deN6a981fe3.jpg" width="330" height="475">
+                            </a>
+                            <div class="themes" id="themes">
+                                <ul>
+                                    <li>男装</li>
+                                    <li>女装</li>
+                                    <li>内衣</li>
+                                    <li>鞋靴</li>
+                                    <li>箱包</li>
+                                    <li>奢侈品</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="title ">
+                            <div class="titleft">
+                                <a href="#" style="color: #C81623">潮流女装</a>
+                                <a href="#">丝巾</a></br>
+                                <a href="#">服装城</a>
+                                <a href="#">品质男鞋</a></br>
+                                <a href="#">时尚女鞋</a>
+                                <a href="#" style="color: #C81623">精品男装</a></br>
+                                <a href="#">纯棉内裤</a>
+                                <a href="#">奢侈品</a>
+                            </div>
+                            <div class="titright">
+                                <a href="#">菩提手串</a>
+                                <a href="#" style="color: #C81623">水晶手链</a></br>
+                                <a href="#">时尚女包</a>
+                                <a href="#">精品男包</a></br>
+                                <a href="#">维氏手表</a>
+                                <a href="#" style="color: #C81623">奢品名表</a></br>
+                                <a href="#">国表经典</a>
+                                <a href="#">腕表七夕</a>
+                            </div>
+                        </div>
+                        <img src="image/57ab4467Na5249097.jpg">
+                    </div>
+                    <div class="loading"><img src="image/loading.gif"></div>
+                    <div class="cosm">
+                        <ul>
+                            <li class="for1"><a href="#"><img src="image/57ab36eeN606c8f85.jpg"></a></li>
+                            <li class="for2"><a href="#"><img src="image/57ab40f6N5bbae5fb.jpg"></a></li>
+                            <li class="for3">
+                                <ul id="for3" style="width:6000px;left:0px;position:absolute;">
+                                    <li><a href="#"><img src="image/57aca738N08746115.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b7aN752faf62.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b92Nc398139e.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3ba7Ne8aa38d6.jpg"></a></li>
+                                </ul>
+                                <ul id="yuan">
+                                    <li class="yuan fl" style="background: #B61B1F"></li>
+                                    <li class="yuan fl"></li>
+                                    <li class="yuan fl"></li>
+                                    <li class="yuan fl"></li>
+                                </ul>
+                                <div id="arrow3">
+                                    <div class="arrow3-left"><</div>
+                                    <div class="arrow3-right">></div>
+                                </div>
+                            </li>
+                            <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
+                            <li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>
+                            <li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>
+                            <li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>
+                        </ul>
+                    </div>
+                    <div class="cosr">
+                        <ul>
+                            <li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>
+                            <li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>
+                            <li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!--广告-->
                 <div class="na">
                     <div class="w">
