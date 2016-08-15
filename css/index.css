@@ -162,6 +162,7 @@
     border-right: 1px solid #C81623;
 }
 .mt li{
+    cursor: pointer;
     position: relative;
     padding: 0 16px;
     /*width: 58px;*/
@@ -171,6 +172,8 @@
     text-align: center;
 }
 .mt li span {
+    display: block;
+    top: 0;
     position: absolute;
     font-size: 16px;
     right: -3px;
@@ -198,22 +201,35 @@
     text-align: center;
     overflow: hidden;
 }
-.F1 ,.F2,.F3{
+.F1 ,.F3{
     position: relative;
     height: 633px;
     margin-bottom: 10px;
+    width: 1210px;
+}
+.F2{
+    position: relative;
+    height: 475px;
+    margin-bottom: 10px;
+    width: 1210px;
 }
 .loading {
-    height: 633px;
-    width: 1200px;
+    height: 333px;
+    width: 710px;
+    z-index: 100;
     background: white;
-    text-align: center;
-    line-height: 633px;
+    padding: 300px 0 0 500px;
     position: absolute;
 }
 .F1left{
     position: relative;
     width: 330px;
+}
+.F2 .F1left {
+    width: 210px;
+}
+.F2 .banleft {
+    width: 210px;
 }
 .banleft {
     width: 330px;
@@ -245,7 +261,12 @@
 }
 .na1 {
     height: 66px;
-    background: red;
+    background: #F7F7F7;
+}
+.na1 img{
+    /*height: 30px;*/
+    padding: 8px;
+    border-right: dashed 1px #E4E4E4;
 }
 #menu{
     width:32px;height:360px;
@@ -273,18 +294,21 @@
 }
 #menu ul li:hover span{ display:block;}
 #menu ul li span.active{color:#C81623;background:#fff;display:block;}
-.themes{
+.themes,.themes2{
     position: relative;
     margin-top: -221px;
     padding-left: 25px;
     height: 92px;
     background: rgba(255,255,255,.5);
 }
-.themes ul{
-    /*float: left;*/
+.themes2{
+    padding-left: 15px;
 }
-.themes ul li {
-
+.F2 .themes2 ul li {
+width: 90px;
+    margin-left: 5px;
+}
+.themes ul li,.themes2 ul li {
     float: left;
     font-size: 14px;
     font-family: "Microsoft YaHei";
@@ -293,7 +317,8 @@
     height: 26px;
     padding: 10px 0;
 }
-.themes ul li:hover{
+.themes ul li:hover,
+.themes2 ul li:hover{
     color: #C81623;
     cursor: pointer;
 }
@@ -305,8 +330,26 @@ background: url("../image/clothesicon.png")no-repeat;
     margin-right: 5px;
     display: block;
 }
+[class^=fouricon]{
+    background: url("../image/cosmeticsicon.png")no-repeat;
+    width: 26px;
+    height: 26px;
+    float: left;
+    margin-right: 5px;
+    display: block;
+}
+.F2 .title .titleft {
+    width: 210px;
+}
 .title{
     height: 129px;
+    position: absolute;
+    top:346px;
+    background: rgba(255,255,255,.7);
+}
+.title2{
+    height: 129px;
+    width: 100%;
     position: absolute;
     top:346px;
     background: rgba(255,255,255,.7);
@@ -361,4 +404,42 @@ background: url("../image/clothesicon.png")no-repeat;
 }
 .cosm .for3:hover #arrow3{
     display: block;
+}
+.men {
+    float: left;
+    width: 880px;
+    height: 633px;
+}
+.men>li{
+    float: left;
+    padding: 20px 20px 0 10px;
+    width: 189px;
+    height: 215px;
+    border-bottom: solid 1px #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    /*text-align: center;*/
+    position: relative;
+
+}
+.men>li>a>img{
+    margin: 0 0 13px 36px;
+}
+.men>li span{
+}
+.men>li i{
+    position: absolute;
+    left: 6%;
+    top: 85%;
+    font-size: 15px;
+    font-family: Verdana;
+    color: #E4393C;
+    font-weight: 400;
+}
+.men-bottom li{
+    float: left;
+    border-right: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
+}
+.TAB>div{
+    display: none;
 }

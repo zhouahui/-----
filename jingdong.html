@@ -12,8 +12,11 @@
             var $ = function (id) {
                 return document.getElementById(id);
             }
-            var load = document.getElementsByClassName("loading")[0];
-            load.style.display = "none";
+            var load = document.getElementsByClassName("loading");
+            for(var i=0;i<load.length;i++){
+                load[i].style.display = "none";
+            }
+
 //            顶部广告开始
             $("X").onclick = function () {
                 $("toplogo").style.display = "none";
@@ -45,7 +48,7 @@
             }
             //                  隐藏导航hover效果结束
             //                轮播开始
-            function lunbo(id,tagname1,id2,id3,tagname2) {
+            function lunbo(id, tagname1, id2, id3, tagname2) {
                 var images = document.getElementById(id).getElementsByTagName(tagname1);
                 var arrow = document.getElementById(id2);
                 var yuandian = document.getElementById(id3).getElementsByTagName(tagname2);
@@ -132,8 +135,10 @@
                     right()
                 }, 3000)
             }
-            lunbo("images","a","arrow","dingwei","li");
+
+            lunbo("images", "a", "arrow", "dingwei", "li");
             var n = 0;
+
             function clk(time) {
                 if (n > 0) {
                     return false;
@@ -144,6 +149,7 @@
                 }, time);
                 return true;
             }
+
 //            左移动
 //           淡入函数
             function fadeIn(elem) {
@@ -193,17 +199,20 @@
                     id[i].appendChild(a);
                 }
             }
+
             fn("serve", "li", "a", 25, "ceshi");
             fn("themes", "li", "a", 26, "sixicon")
+            fn("themes2", "li", "a", 26, "fouricon")
+
 ////            图标结束
 ////            点播开始
 ////            小箭头
-            function dianbo(id,tagname1,id2,dist,dingshi){
+            function dianbo(id, tagname1, id2, dist, dingshi) {
                 var li = document.getElementById(id).getElementsByTagName(tagname1)[0];
                 var cli = li.cloneNode(true);
                 $(id).appendChild(cli);
                 var li_s = document.getElementById(id).getElementsByTagName(tagname1).length;
-                var li=document.getElementById(id).getElementsByTagName(tagname1);
+                var li = document.getElementById(id).getElementsByTagName(tagname1);
 //            alert(li_s.length);
                 var left2 = $(id2).children[0];
                 var Right2 = $(id2).children[1];
@@ -239,7 +248,7 @@
                 }
 
 
-                function right(){
+                function right() {
                     if (clk(500) == true) {
                         for (var i = 0; i < yuan.length; i++) {
                             yuan[i].style.background = "#3E3E3E";
@@ -251,19 +260,22 @@
                         }
 //                        console.log(imgindex);
                         goLeft($(id), imgindex * dist);
-                        if (imgindex<4){
+                        if (imgindex < 4) {
                             yuan[imgindex].style.background = "#B61B1F";
-                        }else{
+                        } else {
                             yuan[0].style.background = "#B61B1F";
                         }
                     }
                 }
+
                 Right2.onclick = right;
-                if(dingshi=="true"){
-                setInterval(right,2000);}
+                if (dingshi == "true") {
+                    setInterval(right, 2000);
+                }
             }
-            dianbo("tu","li","arrow2",1000,"flash");
-            dianbo("for3","li","arrow3",440,"true");
+
+            dianbo("tu", "li", "arrow2", 1000, "flash");
+            dianbo("for3", "li", "arrow3", 440, "true");
 
 ////            点播缓慢
             function goLeft(elem, dist) {
@@ -286,6 +298,32 @@
                 }
             }
 
+            var tab = document.getElementsByClassName("TAB")[0].children;
+            var li = document.getElementById("TAB").getElementsByTagName("li");
+//            var li_s =li.children
+            var span = document.getElementById("TAB").getElementsByTagName("span");
+            for (var i = 0; i < li.length; i++) {
+                li[i].index = i;
+                li[i].onmouseover = function () {
+                    for(var i=0;i<li.length;i++){
+                        li[i].className = "";
+                        tab[i].style.display = "none";
+                    }
+                    for(var i=0;i<span.length;i++){
+                        span[i].style.display = "block";
+
+                    }
+//                    alert(this.index);
+                    li[this.index].className = "hover-style";
+                    tab[this.index].style.display = "block";
+                    if(this.index<span.length){
+                        span[this.index].style.display = "none";
+                    }
+
+                }
+//                li[i].style.className = "hover-style";
+//                span[i].style.display = "none";
+            }
 //            var like = document.getElementsByClassName("like")[0];
 //            var xian = document.getElementsByClassName("xian")[0].children[0];
 //            like.onmouseover = function () {
@@ -299,36 +337,36 @@
         }
     </script>
     <!--<script type="text/javascript">-->
-        <!--//            JQ实现点播功能-->
-        <!--$(function () {-->
-            <!--var clone = $("#dianbo #tu li").first().clone();-->
-            <!--$("#dianbo #tu").append(clone);-->
-            <!--var i = 0;-->
-            <!--var size = $("#dianbo #tu li").size();-->
-            <!--console.log(size);-->
-            <!--//                左轮波-->
-            <!--$("#arrow2 .arrow2-left").click(function () {-->
-                <!--i&#45;&#45;;-->
-                <!--if (i == -1) {-->
-                    <!--console.log(i);-->
-                    <!--console.log(size);-->
-                    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
-                    <!--i = size - 2;-->
-                <!--}-->
-                <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
-            <!--});-->
-            <!--$("#arrow2 .arrow2-right").click(function () {-->
-                <!--moveR();-->
-            <!--})-->
-            <!--function moveR() {-->
-                <!--i++;-->
-                <!--if (i == size) {-->
-                    <!--$("#dianbo #tu").css({left: 0});-->
-                    <!--i = 1;-->
-                <!--}-->
-                <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
-            <!--}-->
-        <!--})-->
+    <!--//            JQ实现点播功能-->
+    <!--$(function () {-->
+    <!--var clone = $("#dianbo #tu li").first().clone();-->
+    <!--$("#dianbo #tu").append(clone);-->
+    <!--var i = 0;-->
+    <!--var size = $("#dianbo #tu li").size();-->
+    <!--console.log(size);-->
+    <!--//                左轮波-->
+    <!--$("#arrow2 .arrow2-left").click(function () {-->
+    <!--i&#45;&#45;;-->
+    <!--if (i == -1) {-->
+    <!--console.log(i);-->
+    <!--console.log(size);-->
+    <!--$("#dianbo #tu").css({left: (size - 1) * -1000});-->
+    <!--i = size - 2;-->
+    <!--}-->
+    <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
+    <!--});-->
+    <!--$("#arrow2 .arrow2-right").click(function () {-->
+    <!--moveR();-->
+    <!--})-->
+    <!--function moveR() {-->
+    <!--i++;-->
+    <!--if (i == size) {-->
+    <!--$("#dianbo #tu").css({left: 0});-->
+    <!--i = 1;-->
+    <!--}-->
+    <!--$("#dianbo #tu").stop().animate({left: -i * 1000}, 600);-->
+    <!--}-->
+    <!--})-->
     <!--</script>-->
     <script type="text/javascript">
         <!--小楼梯导航-->
@@ -3082,14 +3120,7 @@
         <li>1F<span>服饰</span></li>
         <li>2F<span>美妆</span></li>
         <li>3F<span>手机</span></li>
-        <!--<li>4F<span>家电</span></li>-->
-        <!--<li>5F<span>数码</span></li>-->
-        <!--<li>6F<span>运动</span></li>-->
-        <!--<li>7F<span>居家</span></li>-->
-        <!--<li>8F<span>母婴</span></li>-->
-        <!--<li>9F<span>食品</span></li>-->
-        <!--<li>10F<span>图书</span></li>-->
-        <!--<li>11F<span>服务</span></li>-->
+
     </ul>
 </div>
 <!--F1-F12-->
@@ -3104,7 +3135,7 @@
                             <i>1F</i>
                             服装鞋包
                         </h2>
-                        <ul class="fr">
+                        <ul class="fr" id="TAB">
                             <li class="hover-style">大牌<span style="display: none;">|</span></li>
                             <li>男装<span>|</span></li>
                             <li>女装<span>|</span></li>
@@ -3118,6 +3149,7 @@
                     </div>
                 </div>
                 <div class="F1">
+                    <div class="loading"><img src="image/loading.gif"></div>
                     <div class="F1left fl">
                         <div class="banleft fl">
                             <a href="#">
@@ -3156,50 +3188,276 @@
                                 <a href="#">腕表七夕</a>
                             </div>
                         </div>
-                        <img src="image/57ab4467Na5249097.jpg">
+                        <img src="image/57ab4467Na5249097.jpg"
+                             style="border-right: 1px solid #E4E4E4;border-bottom: 1px solid #E4E4E4;width: 329px;">
                     </div>
-                    <div class="loading"><img src="image/loading.gif"></div>
-                    <div class="cosm">
-                        <ul>
-                            <li class="for1"><a href="#"><img src="image/57ab36eeN606c8f85.jpg"></a></li>
-                            <li class="for2"><a href="#"><img src="image/57ab40f6N5bbae5fb.jpg"></a></li>
-                            <li class="for3">
-                                <ul id="for3" style="width:6000px;left:0px;position:absolute;">
-                                    <li><a href="#"><img src="image/57aca738N08746115.jpg"></a></li>
-                                    <li><a href="#"><img src="image/57ab3b7aN752faf62.jpg"></a></li>
-                                    <li><a href="#"><img src="image/57ab3b92Nc398139e.jpg"></a></li>
-                                    <li><a href="#"><img src="image/57ab3ba7Ne8aa38d6.jpg"></a></li>
+
+                    <div class="TAB">
+                        <div class="for0" style="display: block">
+                            <div class="cosm">
+                                <ul>
+                                    <li class="for1"><a href="#"><img src="image/57ab36eeN606c8f85.jpg"></a></li>
+                                    <li class="for2"><a href="#"><img src="image/57ab40f6N5bbae5fb.jpg"></a></li>
+                                    <li class="for3">
+                                        <ul id="for3" style="width:6000px;left:0px;position:absolute;">
+                                            <li><a href="#"><img src="image/57aca738N08746115.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3b7aN752faf62.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3b92Nc398139e.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3ba7Ne8aa38d6.jpg"></a></li>
+                                        </ul>
+                                        <ul id="yuan">
+                                            <li class="yuan fl" style="background: #B61B1F"></li>
+                                            <li class="yuan fl"></li>
+                                            <li class="yuan fl"></li>
+                                            <li class="yuan fl"></li>
+                                        </ul>
+                                        <div id="arrow3">
+                                            <div class="arrow3-left"><</div>
+                                            <div class="arrow3-right">></div>
+                                        </div>
+                                    </li>
+                                    <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
+                                    <li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>
+                                    <li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>
+                                    <li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>
                                 </ul>
-                                <ul id="yuan">
-                                    <li class="yuan fl" style="background: #B61B1F"></li>
-                                    <li class="yuan fl"></li>
-                                    <li class="yuan fl"></li>
-                                    <li class="yuan fl"></li>
+                            </div>
+                            <div class="fl">
+                                <ul>
+                                    <li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>
+                                    <li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>
+                                    <li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>
                                 </ul>
-                                <div id="arrow3">
-                                    <div class="arrow3-left"><</div>
-                                    <div class="arrow3-right">></div>
-                                </div>
-                            </li>
-                            <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
-                            <li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>
-                            <li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>
-                            <li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>
-                        </ul>
+                            </div>
+                        </div>
+                        <div class="for1">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/5796d0b7Nfbedf273.jpg"></br>
+                                    <span>哈吉斯翻领短袖T恤男POLO杉</br></span></a><i>￥489.00</i></li>
+                                <li><a href="#"><img src="image/574272b6N68e2c49a.jpg"></br>
+                                    <span>七匹狼男士纯棉多色翻领时尚商务休闲POLO杉</br></span></a><i>￥179.00</i></li>
+                                <li><a href="#"><img src="image/57a2b653Nb27515a1.jpg"></br>
+                                    <span>班尼路韩版印花字母运动卫衣男</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/57a7fb35Ne73a6838.jpg"></br>
+                                    <span>卡宾 纯棉翻领舒适修身百搭男士长袖白衬衫</br></span></a><i>￥199.00</i></a></li>
+                                <li><a href="#"><img src="image/578337d9Nf6fa5355.jpg"></br><span>G-Star RAW修身紧身腰带拉链仿旧深色流行弹力牛仔裤</br></span></a><i>￥1298.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5799a27bNd74d720c.jpg"></br>
+                                    <span>亚狮龙羊毛修身商务男士休闲裤</br></span></a><i>￥298.00</i></a></li>
+                                <li><a href="#"><img src="image/57198934N986a17b5.jpg"></br>
+                                    <span>美特斯邦威斜插弹力休闲长裤</br></span></a><i>￥119.00</i></a></li>
+                                <li><a href="#"><img src="image/577334c4N64a30f9d.jpg"></br>
+                                    <span>AK男装新款潮流特工款收口休闲裤</br></span></a><i>￥239.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3828N9e48af87.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ac140bNd7579ee4.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab385cNf59693ca.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab386eN09d9fc5f.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for2">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/577e04afNc80364aa.png"></br>
+                                    <span>d'zzit地素 条纹 无袖牛 仔A字连衣裙</br></span></a><i>￥395.00</i></li>
+                                <li><a href="#"><img src="image/57562eb1Nf5bc892c.jpg"></br>
+                                    <span>d'zzit地素 简洁领口褶裥装饰条纹连衣裙</br></span></a><i>￥562.00</i></li>
+                                <li><a href="#"><img src="image/57a2b653Nb27515a1.jpg"></br>
+                                    <span>DAZZLE 地素俏皮装饰收口下摆圆领卫衣</br></span></a><i>￥449.00</i></a></li>
+                                <li><a href="#"><img src="image/57a7fb35Ne73a6838.jpg"></br>
+                                    <span>DAZZLE地素 俏皮刺绣图案长袖衬衫</br></span></a><i>￥379.00</i></a></li>
+                                <li><a href="#"><img src="image/57a9490eNfad8e330.png"></br><span>DAZZLE地素 后背镂空拉链圆领收口长袖衬衫</br></span></a><i>￥509.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57a94963N5a6f9070.png"></br>
+                                    <span>DAZZLE地素卡通刺绣图案连帽长袖卫衣</br></span></a><i>￥533.00</i></a></li>
+                                <li><a href="#"><img src="image/57a949a5N8c1b31bb.png"></br>
+                                    <span>d‘zzit地素不规则拼接经典简洁条纹连衣裙</br></span></a><i>￥547.00</i></a></li>
+                                <li><a href="#"><img src="image/57a949e2N62d8bbeb.png"></br>
+                                    <span>DAZZLE地素个性下摆卡通拼接图案圆领卫衣</br></span></a><i>￥509.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57a73c52N55ac7e61.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab391aN8a9b6380.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab392bN4d210760.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab393eN4e870730.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for3">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/572ab873N9719269d.jpg"></br><span>策乐/Cele 休闲凉鞋 黑色 39码 M5B4L21301</br></span></a><i>￥99.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/57a94776Nd641c404.jpg"></br>
+                                    <span>骆驼 男鞋男士皮鞋圆头系带男鞋商务休闲皮鞋子</br></span></a><i>￥319.00</i></li>
+                                <li><a href="#"><img src="image/57ada331N2602775c.jpg"></br>
+                                    <span>BELLE/百丽春季常青款黑色牛皮男单鞋</br></span></a><i>￥328.00</i></a></li>
+                                <li><a href="#"><img src="image/57ada3b2Nbbd4a97f.jpg"></br>
+                                    <span>花花公子 休闲鞋 男鞋潮鞋英伦休闲男鞋</br></span></a><i>￥198.00</i></a></li>
+                                <li><a href="#"><img src="image/572bfe8fNc2ee41a9.jpg"></br><span>简帛 运动休闲鞋女健步鞋平底网鞋透气轻便 淡绿色37</br></span></a><i>￥399.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5782fc09N845e8492.jpg"></br><span>ninewest玖熙镂空女鞋 头层牛皮高跟鞋细跟尖头单鞋</br></span></a><i>￥890.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ad2ef1Nafb43d75.jpg"></br><span>快乐玛丽J&M 夏季 休闲帆布女鞋一脚蹬条纹女鞋</br></span></a><i>￥159.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ad4ee8Nd6a24eda.jpg"></br><span>Kiss Kitty2016秋新款牛漆性感玛丽珍鞋细高跟鞋女 红色 36</br></span></a><i>￥669.00</i></a>
+                                </li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3aafN7493e23c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3abdNbd9215ce.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3ac9N850d3162.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3ad6Ndb7c5613.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for4">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/56f4d159Nf0db6bad.jpg"></br>
+                                    <span>SWISSGEAR双肩背包 防水面料时尚休闲</br></span></a><i>￥99.00</i></li>
+                                <li><a href="#"><img src="image/574d9044N04a9c0b3.jpg"></br><span>美旅箱包 fountain系列颗粒磨砂防刮硬箱旅行箱拉杆箱</br></span></a><i>￥699.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/57568d42Ne1427eb7.jpg"></br>
+                                    <span>金狐狸 新款牛皮简约女士单肩包</br></span></a><i>￥399.00</i></a></li>
+                                <li><a href="#"><img src="image/5786fd42N62cc9020.jpg"></br>
+                                    <span>伊米妮女包 迷你时髦单肩斜跨 牛皮双面包</br></span></a><i>￥349.00</i></a></li>
+                                <li><a href="#"><img src="image/575d261aN3226486c.jpg"></br>
+                                    <span>途明 男士商务休闲旅行斜背胸包单肩包黑色</br></span></a><i>￥2088.00</i></a></li>
+                                <li><a href="#"><img src="image/57ad453dN83f5a0d3.jpg"></br>
+                                    <span>张小盒拉杆箱醉美公主款万向轮旅行箱 24寸</br></span></a><i>￥659.00</i></a></li>
+                                <li><a href="#"><img src="image/57abed23N7e8cade7.jpg"></br>
+                                    <span>卢比亚钱包男士长款男款拉链皮夹卡包</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/573c1adcNe086cbb2.jpg"></br>
+                                    <span>HAUTTON/皓顿钱包 男款多功能钱包卡包</br></span></a><i>￥139.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3a64N01f09f02.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ac1456Nae4117e1.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a7aNbcad2e6b.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a87Nd582b336.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for5">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/578c6d21N2b0392e3.jpg"></br>
+                                    <span>音米偏光镜眼镜男</br></span></a><i>￥99.00</i></li>
+                                <li><a href="#"><img src="image/578c7d46N095f4ea2.jpg"></br>
+                                    <span>都市丽人一片式无痕无钢圈聚拢调整型纯色文胸</br></span></a><i>￥89.00</i></li>
+                                <li><a href="#"><img src="image/56206650N8492bc16.jpg"></br>
+                                    <span>金三塔文胸100%桑蚕丝无钢圈透气舒适文胸</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/56eb636eNdfde2b21.jpg"></br>
+                                    <span>兰卓丽少女棉质低腰提臀平角女士</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/57a2b4e7Nf12b5df0.jpg"></br>
+                                    <span>花花公子真皮自动扣牛皮腰带男</br></span></a><i>￥139.00</i></a></li>
+                                <li><a href="#"><img src="image/576b7c1fN05ba4269.jpg"></br>
+                                    <span>北极绒棉质亲肤透气中腰平角裤</br></span></a><i>￥89.00</i></a></li>
+                                <li><a href="#"><img src="image/571049aaN59e4da59.jpg"></br><span>与狼共舞 纯色U凸立体舒适透气兰精脸谱平角内裤</br></span></a><i>￥99.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5799ae65Nbef0b1f1.jpg"></br>
+                                    <span>PUMA/彪马 运动时尚休闲袜子</br></span></a><i>￥89.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab38a5Nde9acd63.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab38bfNbee73518.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab38eeN94820da0.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57abdb4dN7c0fdd73.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for6">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/5754ec64N36d3a08c.jpg"></br><span>菜百首饰 Au9999黄金金条 10克生肖猴年投资金条</br></span></a><i>￥3022.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/579ab701N7281f99a.jpg"></br><span>黛米珍珠 流云 7-8mm圆珠 淡水珍珠项链锁骨满天星项链</br></span></a><i>￥139.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5760aed9N0d612337.jpg"></br>
+                                    <span>简丹 925银项链女镶嵌锆石银吊坠锁骨链</br></span></a><i>￥129.00</i></a></li>
+                                <li><a href="#"><img src="image/5742c01cNe9722211.jpg"></br><span>APM MONACO 女士银色时尚三环戒指 A15940OX-52码</br></span></a><i>￥559.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57906a25N0048b264.jpg"></br><span>京润珍珠灵心9-10mm扁圆/四面光淡水珍珠项链</br></span></a><i>￥449.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ac4097N25528f39.jpg"></br>
+                                    <span>爱宝莉 18K金求订结婚钻石戒指/情侣婚戒</br></span></a><i>￥4399.00</i></a></li>
+                                <li><a href="#"><img src="image/57ac47f3N4dabcb8a.jpg"></br><span>银千惠 925纯银项链女 韩版吊坠女银饰品首饰</br></span></a><i>￥199.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/563af6a3N3c6585d5.jpg"></br>
+                                    <span>简丹 S925银璀璨锆石项链女吊坠银锁骨链</br></span></a><i>￥169.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3af9Nf3386100.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b07Ncd13f4de.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b15N34c85a4c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b2bN71141cc3.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for7">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/57982475N2b5fc586.jpg"></br><span>高仕TOWNSEND 涛声系列黑珐琅镀铑白夹钢笔</br></span></a><i>￥2380.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/577c6453N0f8c6ced.jpg"></br>
+                                    <span>COACH 蔻驰 女款紫色皮革斜挎单肩手提包</br></span></a><i>￥1680.00</i></li>
+                                <li><a href="#"><img src="image/5791dc90Nb3c17efb.jpg"></br>
+                                    <span>BALLY巴利男款经典黑白条纹牛皮休闲鞋</br></span></a><i>￥1999.00</i></a></li>
+                                <li><a href="#"><img src="image/549ba8f5N5e1010aa.png"></br><span>沃尔玛GIFT卡吉祥 礼品卡 款式超市消费 购物卡1000元面值</br></span></a><i>￥985.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/579c73b7N472729eb.jpg"></br><span>繁花集 LoveLetter系列圆舞曲永生玫瑰花盒</br></span></a><i>￥520.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5785fde2N8ee2e24a.jpg"></br><span>zippo打火机正版 原装黑冰标志150ZL防风</br></span></a><i>￥148.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/574fee18N01427c60.jpg"></br><span>全球购 蔻驰 男包 新款时尚男士公文手提商务包</br></span></a><i>￥2499.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57919b5cN250ed614.jpg"></br>
+                                    <span>乾越 创意可爱大容量移动电源小巧 手机充电宝</br></span></a><i>￥118.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3a0fN8dbaa84c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a1eNcd865d2d.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a2cNf7d5e1a3.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a3aNbf2ab35e.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for7">
+                            <ul class="men">
+                                <li><a href="#"><img
+                                        src="image/rBEhUlKlWdMIAAAAAAFTAuVazkUAAGjTgAF5O4AAVMa133.jpg"></br><span>卡地亚(Cartier)手表 蓝气球系列机械女表W6920071</br></span></a><i>￥36498.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5677d392N9f91c8da.jpg"></br><span>美度(MIDO)手表 贝伦赛丽系列自动机械男表</br></span></a><i>￥4099.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5667ce34Naa0e6fb6.jpg"></br><span>斐乐 手表 时尚运动休闲防水情侣表石英男士手表</br></span></a><i>￥359.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/56a83048Ndd183304.jpg"></br>
+                                    <span>西铁城 手表 光动能不锈钢覆黑色涂层表带男表</br></span></a><i>￥1399.00</i></a></li>
+                                <li><a href="#"><img src="image/5767a672Ne4bb7ec4.jpg"></br>
+                                    <span>颂拓 手表 GPS多功能户外运动表 登山腕表</br></span></a><i>￥3321.00</i></a></li>
+                                <li><a href="#"><img src="image/573e7c1fN34087996.jpg"></br>
+                                    <span>海鸥表 机械男士手表镂空多功能皮带表</br></span></a><i>￥899.00</i></a></li>
+                                <li><a href="#"><img src="image/571ed7a1N244db176.jpg"></br>
+                                    <span>米纳 女士手表大表盘陶瓷防水石英女表</br></span></a><i>￥468.00</i></a></li>
+                                <li><a href="#"><img src="image/57ad43b0N8dfc1527.jpg"></br>
+                                    <span>瑞士爱宝时 机械男表皮带手表 水蓝版</br></span></a><i>￥5390.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab39baN69a2ed51.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab39ccN84732bf3.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57abe9daNd19da81f.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab39dfN5d8cb246.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="cosr">
-                        <ul>
-                            <li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>
-                            <li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>
-                            <li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>
-                        </ul>
-                    </div>
+
                 </div>
 
                 <!--广告-->
                 <div class="na">
                     <div class="w">
-                        <div class="na1"></div>
+                        <div class="na1  clearfix">
+                            <img src="image/57abe0d0N22503beb.jpg">
+                            <img src="image/57a7e541N6ec6c73d.jpg">
+                            <img src="image/57a7e555Ne455c67b.jpg">
+                            <img src="image/57a7e567N9d0460df.jpg">
+                            <img src="image/57a7e57cNb8797b99.jpg">
+                            <img src="image/57a7e58eN2dd2816f.jpg">
+                            <img src="image/5795b807N8d1ea1cc.jpg">
+                            <img src="image/5732ec02N847c5d0f.jpg">
+                            <img src="image/57ac1c56Nab40380d.png">
+                            <img src="image/5747b251N818750c2.jpg" style="border: 0">
+                        </div>
                     </div>
                 </div>
             </li>
@@ -3211,9 +3469,300 @@
                             <i>2F</i>
                             个户美妆
                         </h2>
+                        <ul class="fr" id="TAB2">
+                            <li class="hover-style">热门<span style="display: none;">|</span></li>
+                            <li>国际大牌<span>|</span></li>
+                            <li>国妆名品<span>|</span></li>
+                            <li>个人护理<span>|</span></li>
+                            <li>清洁用品<span>|</span></li>
+                            <li>纸品湿巾<span>|</span></li>
+                            <li>香水彩妆<span>|</span></li>
+                            <li>热销面膜<span>|</span></li>
+                            <li>男士精品</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="F2"></div>
+                <div class="F1 F2">
+                    <div class="loading"><img src="image/loading.gif"></div>
+                    <div class="F1left fl">
+                        <div class="banleft fl">
+                            <a href="#">
+                                <img src="image/57a92f8bNdcc31df7.jpg" width="210" height="475">
+                            </a>
+                            <div class="themes2" id="themes2">
+                                <ul>
+                                    <li>美妆特卖</li>
+                                    <li>个护清洁</li>
+                                    <li>美妆商城</li>
+                                    <li>官方直售</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="title title2">
+                            <div class="titleft">
+                                <a href="#"><b>发现尖牙的奥秘></b></a></br>
+                                <a href="#"><b>欧莱雅 满99减30>></b></a></br>
+                                <a href="#" style="color: #C81623">国际馆</a>
+                                <a href="#">国妆馆</a>
+                                <a href="#">全球购馆</a></br>
+                                <a href="#">洗护馆</a>
+                                <a href="#" style="color: #C81623">清洁馆</a>
+                                <a href="#">纸品馆</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="TAB">
+                        <div class="for0" style="display: block">
+                            <div class="cosm">
+                                <ul>
+                                    <li class="for1"><a href="#"><img src="image/57ab36eeN606c8f85.jpg"></a></li>
+                                    <li class="for2"><a href="#"><img src="image/57ab40f6N5bbae5fb.jpg"></a></li>
+                                    <li class="for3">
+                                        <ul id="for3" style="width:6000px;left:0px;position:absolute;">
+                                            <li><a href="#"><img src="image/57aca738N08746115.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3b7aN752faf62.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3b92Nc398139e.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57ab3ba7Ne8aa38d6.jpg"></a></li>
+                                        </ul>
+                                        <ul id="yuan">
+                                            <li class="yuan fl" style="background: #B61B1F"></li>
+                                            <li class="yuan fl"></li>
+                                            <li class="yuan fl"></li>
+                                            <li class="yuan fl"></li>
+                                        </ul>
+                                        <div id="arrow3">
+                                            <div class="arrow3-left"><</div>
+                                            <div class="arrow3-right">></div>
+                                        </div>
+                                    </li>
+                                    <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
+                                    <li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>
+                                    <li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>
+                                    <li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>
+                                </ul>
+                            </div>
+                            <div class="fl">
+                                <ul>
+                                    <li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>
+                                    <li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>
+                                    <li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="for1">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/5796d0b7Nfbedf273.jpg"></br>
+                                    <span>哈吉斯翻领短袖T恤男POLO杉</br></span></a><i>￥489.00</i></li>
+                                <li><a href="#"><img src="image/574272b6N68e2c49a.jpg"></br>
+                                    <span>七匹狼男士纯棉多色翻领时尚商务休闲POLO杉</br></span></a><i>￥179.00</i></li>
+                                <li><a href="#"><img src="image/57a2b653Nb27515a1.jpg"></br>
+                                    <span>班尼路韩版印花字母运动卫衣男</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/57a7fb35Ne73a6838.jpg"></br>
+                                    <span>卡宾 纯棉翻领舒适修身百搭男士长袖白衬衫</br></span></a><i>￥199.00</i></a></li>
+                                <li><a href="#"><img src="image/578337d9Nf6fa5355.jpg"></br><span>G-Star RAW修身紧身腰带拉链仿旧深色流行弹力牛仔裤</br></span></a><i>￥1298.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5799a27bNd74d720c.jpg"></br>
+                                    <span>亚狮龙羊毛修身商务男士休闲裤</br></span></a><i>￥298.00</i></a></li>
+                                <li><a href="#"><img src="image/57198934N986a17b5.jpg"></br>
+                                    <span>美特斯邦威斜插弹力休闲长裤</br></span></a><i>￥119.00</i></a></li>
+                                <li><a href="#"><img src="image/577334c4N64a30f9d.jpg"></br>
+                                    <span>AK男装新款潮流特工款收口休闲裤</br></span></a><i>￥239.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3828N9e48af87.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ac140bNd7579ee4.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab385cNf59693ca.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab386eN09d9fc5f.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for2">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/577e04afNc80364aa.png"></br>
+                                    <span>d'zzit地素 条纹 无袖牛 仔A字连衣裙</br></span></a><i>￥395.00</i></li>
+                                <li><a href="#"><img src="image/57562eb1Nf5bc892c.jpg"></br>
+                                    <span>d'zzit地素 简洁领口褶裥装饰条纹连衣裙</br></span></a><i>￥562.00</i></li>
+                                <li><a href="#"><img src="image/57a2b653Nb27515a1.jpg"></br>
+                                    <span>DAZZLE 地素俏皮装饰收口下摆圆领卫衣</br></span></a><i>￥449.00</i></a></li>
+                                <li><a href="#"><img src="image/57a7fb35Ne73a6838.jpg"></br>
+                                    <span>DAZZLE地素 俏皮刺绣图案长袖衬衫</br></span></a><i>￥379.00</i></a></li>
+                                <li><a href="#"><img src="image/57a9490eNfad8e330.png"></br><span>DAZZLE地素 后背镂空拉链圆领收口长袖衬衫</br></span></a><i>￥509.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57a94963N5a6f9070.png"></br>
+                                    <span>DAZZLE地素卡通刺绣图案连帽长袖卫衣</br></span></a><i>￥533.00</i></a></li>
+                                <li><a href="#"><img src="image/57a949a5N8c1b31bb.png"></br>
+                                    <span>d‘zzit地素不规则拼接经典简洁条纹连衣裙</br></span></a><i>￥547.00</i></a></li>
+                                <li><a href="#"><img src="image/57a949e2N62d8bbeb.png"></br>
+                                    <span>DAZZLE地素个性下摆卡通拼接图案圆领卫衣</br></span></a><i>￥509.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57a73c52N55ac7e61.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab391aN8a9b6380.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab392bN4d210760.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab393eN4e870730.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for3">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/572ab873N9719269d.jpg"></br><span>策乐/Cele 休闲凉鞋 黑色 39码 M5B4L21301</br></span></a><i>￥99.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/57a94776Nd641c404.jpg"></br>
+                                    <span>骆驼 男鞋男士皮鞋圆头系带男鞋商务休闲皮鞋子</br></span></a><i>￥319.00</i></li>
+                                <li><a href="#"><img src="image/57ada331N2602775c.jpg"></br>
+                                    <span>BELLE/百丽春季常青款黑色牛皮男单鞋</br></span></a><i>￥328.00</i></a></li>
+                                <li><a href="#"><img src="image/57ada3b2Nbbd4a97f.jpg"></br>
+                                    <span>花花公子 休闲鞋 男鞋潮鞋英伦休闲男鞋</br></span></a><i>￥198.00</i></a></li>
+                                <li><a href="#"><img src="image/572bfe8fNc2ee41a9.jpg"></br><span>简帛 运动休闲鞋女健步鞋平底网鞋透气轻便 淡绿色37</br></span></a><i>￥399.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5782fc09N845e8492.jpg"></br><span>ninewest玖熙镂空女鞋 头层牛皮高跟鞋细跟尖头单鞋</br></span></a><i>￥890.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ad2ef1Nafb43d75.jpg"></br><span>快乐玛丽J&M 夏季 休闲帆布女鞋一脚蹬条纹女鞋</br></span></a><i>￥159.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ad4ee8Nd6a24eda.jpg"></br><span>Kiss Kitty2016秋新款牛漆性感玛丽珍鞋细高跟鞋女 红色 36</br></span></a><i>￥669.00</i></a>
+                                </li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3aafN7493e23c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3abdNbd9215ce.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3ac9N850d3162.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3ad6Ndb7c5613.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for4">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/56f4d159Nf0db6bad.jpg"></br>
+                                    <span>SWISSGEAR双肩背包 防水面料时尚休闲</br></span></a><i>￥99.00</i></li>
+                                <li><a href="#"><img src="image/574d9044N04a9c0b3.jpg"></br><span>美旅箱包 fountain系列颗粒磨砂防刮硬箱旅行箱拉杆箱</br></span></a><i>￥699.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/57568d42Ne1427eb7.jpg"></br>
+                                    <span>金狐狸 新款牛皮简约女士单肩包</br></span></a><i>￥399.00</i></a></li>
+                                <li><a href="#"><img src="image/5786fd42N62cc9020.jpg"></br>
+                                    <span>伊米妮女包 迷你时髦单肩斜跨 牛皮双面包</br></span></a><i>￥349.00</i></a></li>
+                                <li><a href="#"><img src="image/575d261aN3226486c.jpg"></br>
+                                    <span>途明 男士商务休闲旅行斜背胸包单肩包黑色</br></span></a><i>￥2088.00</i></a></li>
+                                <li><a href="#"><img src="image/57ad453dN83f5a0d3.jpg"></br>
+                                    <span>张小盒拉杆箱醉美公主款万向轮旅行箱 24寸</br></span></a><i>￥659.00</i></a></li>
+                                <li><a href="#"><img src="image/57abed23N7e8cade7.jpg"></br>
+                                    <span>卢比亚钱包男士长款男款拉链皮夹卡包</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/573c1adcNe086cbb2.jpg"></br>
+                                    <span>HAUTTON/皓顿钱包 男款多功能钱包卡包</br></span></a><i>￥139.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3a64N01f09f02.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ac1456Nae4117e1.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a7aNbcad2e6b.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a87Nd582b336.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for5">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/578c6d21N2b0392e3.jpg"></br>
+                                    <span>音米偏光镜眼镜男</br></span></a><i>￥99.00</i></li>
+                                <li><a href="#"><img src="image/578c7d46N095f4ea2.jpg"></br>
+                                    <span>都市丽人一片式无痕无钢圈聚拢调整型纯色文胸</br></span></a><i>￥89.00</i></li>
+                                <li><a href="#"><img src="image/56206650N8492bc16.jpg"></br>
+                                    <span>金三塔文胸100%桑蚕丝无钢圈透气舒适文胸</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/56eb636eNdfde2b21.jpg"></br>
+                                    <span>兰卓丽少女棉质低腰提臀平角女士</br></span></a><i>￥99.00</i></a></li>
+                                <li><a href="#"><img src="image/57a2b4e7Nf12b5df0.jpg"></br>
+                                    <span>花花公子真皮自动扣牛皮腰带男</br></span></a><i>￥139.00</i></a></li>
+                                <li><a href="#"><img src="image/576b7c1fN05ba4269.jpg"></br>
+                                    <span>北极绒棉质亲肤透气中腰平角裤</br></span></a><i>￥89.00</i></a></li>
+                                <li><a href="#"><img src="image/571049aaN59e4da59.jpg"></br><span>与狼共舞 纯色U凸立体舒适透气兰精脸谱平角内裤</br></span></a><i>￥99.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5799ae65Nbef0b1f1.jpg"></br>
+                                    <span>PUMA/彪马 运动时尚休闲袜子</br></span></a><i>￥89.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab38a5Nde9acd63.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab38bfNbee73518.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab38eeN94820da0.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57abdb4dN7c0fdd73.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for6">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/5754ec64N36d3a08c.jpg"></br><span>菜百首饰 Au9999黄金金条 10克生肖猴年投资金条</br></span></a><i>￥3022.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/579ab701N7281f99a.jpg"></br><span>黛米珍珠 流云 7-8mm圆珠 淡水珍珠项链锁骨满天星项链</br></span></a><i>￥139.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5760aed9N0d612337.jpg"></br>
+                                    <span>简丹 925银项链女镶嵌锆石银吊坠锁骨链</br></span></a><i>￥129.00</i></a></li>
+                                <li><a href="#"><img src="image/5742c01cNe9722211.jpg"></br><span>APM MONACO 女士银色时尚三环戒指 A15940OX-52码</br></span></a><i>￥559.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57906a25N0048b264.jpg"></br><span>京润珍珠灵心9-10mm扁圆/四面光淡水珍珠项链</br></span></a><i>￥449.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57ac4097N25528f39.jpg"></br>
+                                    <span>爱宝莉 18K金求订结婚钻石戒指/情侣婚戒</br></span></a><i>￥4399.00</i></a></li>
+                                <li><a href="#"><img src="image/57ac47f3N4dabcb8a.jpg"></br><span>银千惠 925纯银项链女 韩版吊坠女银饰品首饰</br></span></a><i>￥199.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/563af6a3N3c6585d5.jpg"></br>
+                                    <span>简丹 S925银璀璨锆石项链女吊坠银锁骨链</br></span></a><i>￥169.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3af9Nf3386100.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b07Ncd13f4de.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b15N34c85a4c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3b2bN71141cc3.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for7">
+                            <ul class="men">
+                                <li><a href="#"><img src="image/57982475N2b5fc586.jpg"></br><span>高仕TOWNSEND 涛声系列黑珐琅镀铑白夹钢笔</br></span></a><i>￥2380.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/577c6453N0f8c6ced.jpg"></br>
+                                    <span>COACH 蔻驰 女款紫色皮革斜挎单肩手提包</br></span></a><i>￥1680.00</i></li>
+                                <li><a href="#"><img src="image/5791dc90Nb3c17efb.jpg"></br>
+                                    <span>BALLY巴利男款经典黑白条纹牛皮休闲鞋</br></span></a><i>￥1999.00</i></a></li>
+                                <li><a href="#"><img src="image/549ba8f5N5e1010aa.png"></br><span>沃尔玛GIFT卡吉祥 礼品卡 款式超市消费 购物卡1000元面值</br></span></a><i>￥985.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/579c73b7N472729eb.jpg"></br><span>繁花集 LoveLetter系列圆舞曲永生玫瑰花盒</br></span></a><i>￥520.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/5785fde2N8ee2e24a.jpg"></br><span>zippo打火机正版 原装黑冰标志150ZL防风</br></span></a><i>￥148.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/574fee18N01427c60.jpg"></br><span>全球购 蔻驰 男包 新款时尚男士公文手提商务包</br></span></a><i>￥2499.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/57919b5cN250ed614.jpg"></br>
+                                    <span>乾越 创意可爱大容量移动电源小巧 手机充电宝</br></span></a><i>￥118.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab3a0fN8dbaa84c.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a1eNcd865d2d.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a2cNf7d5e1a3.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab3a3aNbf2ab35e.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <div class="for7">
+                            <ul class="men">
+                                <li><a href="#"><img
+                                        src="image/rBEhUlKlWdMIAAAAAAFTAuVazkUAAGjTgAF5O4AAVMa133.jpg"></br><span>卡地亚(Cartier)手表 蓝气球系列机械女表W6920071</br></span></a><i>￥36498.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5677d392N9f91c8da.jpg"></br><span>美度(MIDO)手表 贝伦赛丽系列自动机械男表</br></span></a><i>￥4099.00</i>
+                                </li>
+                                <li><a href="#"><img src="image/5667ce34Naa0e6fb6.jpg"></br><span>斐乐 手表 时尚运动休闲防水情侣表石英男士手表</br></span></a><i>￥359.00</i></a>
+                                </li>
+                                <li><a href="#"><img src="image/56a83048Ndd183304.jpg"></br>
+                                    <span>西铁城 手表 光动能不锈钢覆黑色涂层表带男表</br></span></a><i>￥1399.00</i></a></li>
+                                <li><a href="#"><img src="image/5767a672Ne4bb7ec4.jpg"></br>
+                                    <span>颂拓 手表 GPS多功能户外运动表 登山腕表</br></span></a><i>￥3321.00</i></a></li>
+                                <li><a href="#"><img src="image/573e7c1fN34087996.jpg"></br>
+                                    <span>海鸥表 机械男士手表镂空多功能皮带表</br></span></a><i>￥899.00</i></a></li>
+                                <li><a href="#"><img src="image/571ed7a1N244db176.jpg"></br>
+                                    <span>米纳 女士手表大表盘陶瓷防水石英女表</br></span></a><i>￥468.00</i></a></li>
+                                <li><a href="#"><img src="image/57ad43b0N8dfc1527.jpg"></br>
+                                    <span>瑞士爱宝时 机械男表皮带手表 水蓝版</br></span></a><i>￥5390.00</i></a></li>
+                                <ul class="men-bottom fl">
+                                    <li><a href="#"><img src="image/57ab39baN69a2ed51.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab39ccN84732bf3.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57abe9daNd19da81f.jpg"></a></li>
+                                    <li><a href="#"><img src="image/57ab39dfN5d8cb246.jpg"></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!--<div class="loading"><img src="image/loading.gif"></div>-->
             </li>
             <li>
                 <!--F3手机-->
@@ -3226,6 +3775,7 @@
                     </div>
                 </div>
                 <div class="F3"></div>
+                <div class="loading"><img src="image/loading.gif"></div>
             </li>
             <!--<li></li>-->
             <!--<li></li>-->
