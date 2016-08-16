@@ -13,7 +13,7 @@
                 return document.getElementById(id);
             }
             var load = document.getElementsByClassName("loading");
-            for(var i=0;i<load.length;i++){
+            for (var i = 0; i < load.length; i++) {
                 load[i].style.display = "none";
             }
 
@@ -207,17 +207,22 @@
 ////            图标结束
 ////            点播开始
 ////            小箭头
-            function dianbo(id, tagname1, id2, dist, dingshi) {
+            function dianbo(id, tagname1, id2, dist, dingshi,yuan,id3) {
                 var li = document.getElementById(id).getElementsByTagName(tagname1)[0];
                 var cli = li.cloneNode(true);
                 $(id).appendChild(cli);
+                if($(id3)!=null){
+                    var li_2 = document.getElementById(id3).getElementsByTagName("li")[0];
+                    var cli_2 = li_2.cloneNode(true);
+                    $(id3).appendChild(cli_2);
+                }
                 var li_s = document.getElementById(id).getElementsByTagName(tagname1).length;
                 var li = document.getElementById(id).getElementsByTagName(tagname1);
 //            alert(li_s.length);
                 var left2 = $(id2).children[0];
                 var Right2 = $(id2).children[1];
                 var imgindex = 0;
-                var yuan = document.getElementById("yuan").getElementsByTagName("li");
+                var yuan = document.getElementById(yuan).getElementsByTagName("li");
                 for (var i = 0; i < yuan.length; i++) {
 //                小箭头隐入隐出+停留图片停止轮播+轮播
                     li[i].index = i;
@@ -227,6 +232,9 @@
                             yuan[i].style.background = "#3E3E3E";
                         }
                         i = this.index
+                        if($(id3)!=null){
+                            goLeft($(id3),i*dist);
+                        }
                         goLeft($(id), i * dist)
                         yuan[i].style.background = "#B61B1F";
                     }
@@ -241,6 +249,12 @@
                         if (imgindex == -1) {
                             $(id).style.left = -dist * (li_s - 1) + "px";
                             imgindex = li_s - 2;
+                            if($(id3)!=null){
+                                $(id3).style.left = -dist * (li_s - 1) + "px";
+                            }
+                        }
+                        if($(id3)!=null){
+                            goLeft($(id3),imgindex*dist);
                         }
                         goLeft($(id), imgindex * dist)
                         yuan[imgindex].style.background = "#B61B1F";
@@ -257,6 +271,12 @@
                         if (imgindex == li_s) {
                             $(id).style.left = "0px";
                             imgindex = 1;
+                            if($(id3)!=null){
+                                $(id3).style.left = "0px";
+                            }
+                        }
+                        if($(id3)!=null){
+                            goLeft($(id3),imgindex*dist);
                         }
 //                        console.log(imgindex);
                         goLeft($(id), imgindex * dist);
@@ -274,8 +294,10 @@
                 }
             }
 
-            dianbo("tu", "li", "arrow2", 1000, "flash");
-            dianbo("for3", "li", "arrow3", 440, "true");
+            dianbo("tu", "li", "arrow2", 1000, "flash","yuan");
+            dianbo("for3", "li", "arrow3", 440, "true","yuan");
+            dianbo("for4", "li", "arrow4", 339, "true","yuan2","for5");
+
 
 ////            点播缓慢
             function goLeft(elem, dist) {
@@ -305,18 +327,18 @@
             for (var i = 0; i < li.length; i++) {
                 li[i].index = i;
                 li[i].onmouseover = function () {
-                    for(var i=0;i<li.length;i++){
+                    for (var i = 0; i < li.length; i++) {
                         li[i].className = "";
                         tab[i].style.display = "none";
                     }
-                    for(var i=0;i<span.length;i++){
+                    for (var i = 0; i < span.length; i++) {
                         span[i].style.display = "block";
 
                     }
 //                    alert(this.index);
                     li[this.index].className = "hover-style";
                     tab[this.index].style.display = "block";
-                    if(this.index<span.length){
+                    if (this.index < span.length) {
                         span[this.index].style.display = "none";
                     }
 
@@ -2870,8 +2892,8 @@
                 <div id="box3 fl">
                     <div class="dianbo fl clearfix" id="dianbo">
                         <div id="arrow2">
-                            <div class="arrow2-left"><</div>
-                            <div class="arrow2-right">></div>
+                            <div class="arrow-left"><</div>
+                            <div class="arrow-right">></div>
                         </div>
                         <ul id="tu" style="width:6000px;left:0px;position:absolute;">
                             <li><a href="#"><img src="image/57a73378Na3b6e12e.jpg"></a>
@@ -3212,8 +3234,8 @@
                                             <li class="yuan fl"></li>
                                         </ul>
                                         <div id="arrow3">
-                                            <div class="arrow3-left"><</div>
-                                            <div class="arrow3-right">></div>
+                                            <div class="arrow-left"><</div>
+                                            <div class="arrow-right">></div>
                                         </div>
                                     </li>
                                     <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
@@ -3516,40 +3538,47 @@
                         <div class="for0" style="display: block">
                             <div class="cosm">
                                 <ul>
-                                    <li class="for1"><a href="#"><img src="image/57ab36eeN606c8f85.jpg"></a></li>
-                                    <li class="for2"><a href="#"><img src="image/57ab40f6N5bbae5fb.jpg"></a></li>
                                     <li class="for3">
-                                        <ul id="for3" style="width:6000px;left:0px;position:absolute;">
-                                            <li><a href="#"><img src="image/57aca738N08746115.jpg"></a></li>
-                                            <li><a href="#"><img src="image/57ab3b7aN752faf62.jpg"></a></li>
-                                            <li><a href="#"><img src="image/57ab3b92Nc398139e.jpg"></a></li>
-                                            <li><a href="#"><img src="image/57ab3ba7Ne8aa38d6.jpg"></a></li>
+                                        <ul id="for4" style="width:6000px;left:0px;position:absolute;">
+                                            <li style="border-bottom: dashed 1px #E4E4E4"><a href="#"><img src="image/57ac4d09Nd8454357.jpg" style="border-bottom: 1px dashed #E4E4E4;"></a></li>
+                                            <li style="border-bottom: dashed 1px #E4E4E4"><a href="#"><img src="image/57b12dbbNae1a793c.jpg"></a></li>
+                                            <li style="border-bottom: dashed 1px #E4E4E4"><a href="#"><img src="image/57abe11bN1251dfc9.jpg"></a></li>
+                                            <li style="border-bottom: dashed 1px #E4E4E4"><a href="#"><img src="image/57a7e121N24b4afce.jpg"></a></li>
                                         </ul>
-                                        <ul id="yuan">
+                                        <ul id="for5" style="width:6000px;left:0px;position:absolute;">
+                                            <li><a href="#"><img src="image/57aad5cbNd46caf32.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57a7fa10N8a11d465.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57b1186fN9671a4e3.jpg"></a></li>
+                                            <li><a href="#"><img src="image/57a86323N51a55a12.jpg"></a></li>
+                                        </ul>
+                                        <ul id="yuan2">
                                             <li class="yuan fl" style="background: #B61B1F"></li>
                                             <li class="yuan fl"></li>
                                             <li class="yuan fl"></li>
                                             <li class="yuan fl"></li>
                                         </ul>
-                                        <div id="arrow3">
-                                            <div class="arrow3-left"><</div>
-                                            <div class="arrow3-right">></div>
+                                        <div id="arrow4">
+                                            <div class="arrow-left"><</div>
+                                            <div class="arrow-right">></div>
                                         </div>
                                     </li>
-                                    <li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>
-                                    <li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>
-                                    <li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>
-                                    <li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>
-                                </ul>
-                            </div>
-                            <div class="fl">
-                                <ul>
-                                    <li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>
-                                    <li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>
-                                    <li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>
                                 </ul>
                             </div>
                         </div>
+                        <!--<li class="for4"><a href="#"><img src="image/57ab40ffN9149205a.jpg"></a></li>-->
+                        <!--<li class="for5"><a href="#"><img src="image/57aca799N1aea7c6a.jpg"></a></li>-->
+                        <!--<li class="for6"><a href="#"><img src="image/57ab375aN9c8c3b0c.jpg"></a></li>-->
+                        <!--<li class="for7"><a href="#"><img src="image/57ab412bN234da59f.jpg"></a></li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--<div class="fl">-->
+                        <!--<ul>-->
+                        <!--<li class="for1"><a href="#"><img src="image/57ab4142Nb5d50ec9.jpg"></a></li>-->
+                        <!--<li class="for2"><a href="#"><img src="image/57abd0e3N30d508c4.jpg"></a></li>-->
+                        <!--<li class="for3"><a href="#"><img src="image/57ab41ebN5318b31a.jpg"></a></li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--</div>-->
                         <div class="for1">
                             <ul class="men">
                                 <li><a href="#"><img src="image/5796d0b7Nfbedf273.jpg"></br>
@@ -3735,7 +3764,8 @@
                         <div class="for7">
                             <ul class="men">
                                 <li><a href="#"><img
-                                        src="image/rBEhUlKlWdMIAAAAAAFTAuVazkUAAGjTgAF5O4AAVMa133.jpg"></br><span>卡地亚(Cartier)手表 蓝气球系列机械女表W6920071</br></span></a><i>￥36498.00</i>
+                                        src="image/rBEhUlKlWdMIAAAAAAFTAuVazkUAAGjTgAF5O4AAVMa133.jpg"></br>
+                                    <span>卡地亚(Cartier)手表 蓝气球系列机械女表W6920071</br></span></a><i>￥36498.00</i>
                                 </li>
                                 <li><a href="#"><img src="image/5677d392N9f91c8da.jpg"></br><span>美度(MIDO)手表 贝伦赛丽系列自动机械男表</br></span></a><i>￥4099.00</i>
                                 </li>
@@ -3763,6 +3793,22 @@
 
                 </div>
                 <!--<div class="loading"><img src="image/loading.gif"></div>-->
+                <!--<div class="na clearfix">-->
+                <!--<div class="w">-->
+                <!--<div class="na1  clearfix">-->
+                <!--<img src="image/57abe0d0N22503beb.jpg">-->
+                <!--<img src="image/57a7e541N6ec6c73d.jpg">-->
+                <!--<img src="image/57a7e555Ne455c67b.jpg">-->
+                <!--<img src="image/57a7e567N9d0460df.jpg">-->
+                <!--<img src="image/57a7e57cNb8797b99.jpg">-->
+                <!--<img src="image/57a7e58eN2dd2816f.jpg">-->
+                <!--<img src="image/5795b807N8d1ea1cc.jpg">-->
+                <!--<img src="image/5732ec02N847c5d0f.jpg">-->
+                <!--<img src="image/57ac1c56Nab40380d.png">-->
+                <!--<img src="image/5747b251N818750c2.jpg" style="border: 0">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
             </li>
             <li>
                 <!--F3手机-->
